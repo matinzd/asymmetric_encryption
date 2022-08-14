@@ -8,6 +8,11 @@ var users = [];
 io.on("connection", (socket) => {
   console.log("New connection", socket.id);
 
+  if (users.length == 2) {
+    socket.emit("Room is full");
+    socket.disconnect(true);
+  }
+
   users.push({ id: socket.id, public_key: socket.handshake.query.public_key });
 
   if (users.length > 0) {

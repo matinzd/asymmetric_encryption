@@ -83,6 +83,17 @@ socket.on("message", (msg) => {
   console.log("Guest: ", decryptText(msg).toString("utf8"));
 });
 
+socket.on("disconnect", (reason) => {
+  console.log('Disconnected: ',reason)
+  socket.close()
+  rl.close()
+});
+
+socket.on("connect_error", (msg) => {
+  console.log(msg)
+  socket.close()
+});
+
 socket.on("public_key_exchange", (msg) => {
   users = JSON.parse(msg);
 });
